@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %} {{ user.username }}的话题情况 {% endblock %}
+
+{% block content %}
+
+<div id="main">
+    <div id="content">
+        <div class="panel">
+            <div class="header">
+                <ul class="breadcrumb">
+                    <li><a href="/">主页</a><span class="divider">/ 用户</span></li>
+                </ul>
+            </div>
+            <div class="inner userinfo">
+                <div class="user_big_avatar">
+                    <img src="{{ user.image }}" class="user_avatar" title="{{ user.username }}">
+                </div>
+                <a class="dark">{{ user.username }}</a>
+
+                <div class="user_profile">
+                </div>
+                <p class="col_fade">注册时间
+                    <span class="ad-time"> {{ user.created_time | moment }}</span>
+                </p>
+
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近创建的话题</span>
+            </div>
+            {% for t in ms %}
+            <div class="cell">
+
+                <a class="user_avatar pull-left" href="{{ url_for('user.detail', username=user.username) }}">
+                    <img src="{{ t.user().image }}" title="{{ user.username }}">
+                </a>
+
+                <span class="reply_count pull-left">
+                <span class="count_of_replies" title="回复数">
+                    {{ t.replies() | count }}
+                </span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title="点击数">
+                    {{ t.views }}
+                </span>
+                </span>
+                <a class="last_time pull-right"
+                   href="{{ url_for('topic.detail', id=t.id) }}">
+                    <img class="user_small_avatar" src="{{ t.user().image }}">
+                    <span class="last_active_time">{{ t.created_time | moment }}</span>
+                </a>
+
+
+                <div class="topic_title_wrapper">
+                <a class="topic_title" href="{{ url_for('topic.detail', id=t.id) }} " title="{{ t.title }}">
+                    {{ t.title }}
+                </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">最近参与的话题</span>
+            </div>
+            {% for t2 in ms2 %}
+            <div class="cell">
+
+                <a class="user_avatar pull-left" href="/user/{{ user.id }}">
+                    <img src="{{ t2.user().image }}" title="{{ user.username }}">
+                </a>
+
+                <span class="reply_count pull-left">
+                <span class="count_of_replies" title="回复数">
+                    {{ t2.replies() | count }}
+                </span>
+                <span class="count_seperator">/</span>
+                <span class="count_of_visits" title="点击数">
+                    {{ t2.views }}
+                </span>
+                </span>
+
+
+                <a class="last_time pull-right"
+                   href="{{ url_for('topic.detail', id=t2.id) }}">
+                    <img class="user_small_avatar" src="{{ t2.user().image }}">
+                    <span class="last_active_time">{{ t2.updated_time | moment }}</span>
+                </a>
+
+
+                <div class="topic_title_wrapper">
+
+
+                    <a class="topic_title" href="{{ url_for('topic.detail', id=t2.id) }}"
+                       title="{{ t2.title }}">
+                        {{ t2.title }}
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

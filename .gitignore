@@ -1,0 +1,9 @@
+.idea/
+__pycache__/
+.pytest_cache/
+.vagrant/
+ubuntu-xenial-16.04-cloudimg-console.log
+zenyang.log.txt
+.env
+config.py
+*.pyc

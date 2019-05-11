@@ -1,0 +1,18 @@
+<!-- navbar -->
+<div class='navbar'>
+    <div class='navbar-inner'>
+        <div class='container'>
+            <ul class='nav pull-right'>
+                <li><a href="{{ url_for('public.index') }}">首页</a></li>
+                {% if g.user.username != '游客' %}
+                <li><a href="{{ url_for('user.setting') }}">设置</a></li>
+                <li><a href="{{ url_for('user.detail',username=g.user.username) }}">{{ g.user.username }}</a></li>
+                <li><a href="{{ url_for('user.logout', token=token) }}">退出</a></li>
+                {% else %}
+                <li><a href="{{ url_for('user.register_view') }}">注册</a></li>
+                <li><a href="{{ url_for('user.login_view') }}">登陆</a></li>
+                {% endif %}
+          </ul>
+      </div>
+    </div>
+</div>
